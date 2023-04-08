@@ -1,6 +1,8 @@
-# Getting Started with Create React App
+# Getting Started with Aftuit
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project is available on Github [Housing](https://github.com/aftuit/housing.git).
+
+# can see DEMO on (https://netlify).
 
 ## Available Scripts
 
