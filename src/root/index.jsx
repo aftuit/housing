@@ -10,7 +10,7 @@ const Root = () => {
             <Routes>
                 <Route element = {<Navbar />}>
                 {
-                    navbar.map(({ id, path, element }) => {
+                    navbar.map(({ id, path, element, hidden }) => {
                         return <Route key={id()} path={path} element={element} />
                     })
                 }
