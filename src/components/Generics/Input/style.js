@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { ReactComponent as houses} from "../../../assets/icons/houses.svg";
 
 const getType = ({ typeBtn }) => {
     switch (typeBtn) {
@@ -39,8 +40,24 @@ height: ${({ height }) => (height ? `${height}px` : "44px")};
 width: ${({ width }) => (width ? `${width}px` : "100%")};
 outline: none;
 border: 1px solid #E6E9EC;
+padding-left: ${({icon}) => icon? "40px": "20px"};
+padding-right: 20px;
 /* ${getType}; */
 
 `;
 
-export { Container };
+const Wrapper = styled.div`
+  position: relative;
+  width: ${({ width }) => (width ? `${width}px` : "100%")};
+  display: flex;
+  align-items: center;
+`
+const Icon = styled.div`
+  position: absolute;
+  left: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`
+
+export { Container, Wrapper, Icon };

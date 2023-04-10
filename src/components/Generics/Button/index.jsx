@@ -1,5 +1,5 @@
-import React from 'react'
-import { Container } from './style'
+import React from 'react';
+import { Container } from './style';
 
 export const Button = ({ children, typeBtn, onClick, width, height }) => {
     return (
