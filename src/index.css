@@ -37,3 +37,14 @@ body {
   font-size: 16px;
   color: #0d263b;
 }
+.text {
+  font-family: "Montserrat";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--colorSecondary);
+}
+.expired {
+  text-decoration: line-through;
+}
