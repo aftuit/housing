@@ -2,7 +2,7 @@
 
 This project is available on Github [Housing](https://github.com/aftuit/housing.git).
 
-# can see DEMO on (https://netlify).
+# can see DEMO on (https://react-housing-practice.netlify.app/).
 
 ## Available Scripts
 

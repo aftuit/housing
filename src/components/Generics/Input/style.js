@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { ReactComponent as houses} from "../../../assets/icons/houses.svg";
 
 const getType = ({ typeBtn }) => {
     switch (typeBtn) {
