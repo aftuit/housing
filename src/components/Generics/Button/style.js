@@ -54,12 +54,12 @@ const Icons = styled.div``;
 
 Icons.Setting = styled(setting)`
     margin-right: 8px;
-`
+`;
 Icons.Search = styled(search)`
     margin-right: 8px;
-`
+`;
 Icons.Houses = styled(houses)`
     margin-right: 8px;
-`
+`;
 
 export { Container, Icons };
