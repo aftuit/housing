@@ -1,4 +1,4 @@
-import {React, forwardRef} from 'react'
+import { React, forwardRef } from 'react'
 import { Container, Wrapper, Icon } from './style'
 
 export const Input = forwardRef(({
