@@ -13,9 +13,9 @@ const Navbar = () => {
             <Main>
                 <Wrapper>
                     <Section onClick={() => navigate("/home")} logo>
-                        <Logo /> <h3>Housing</h3>
+                        <Logo />
+                        <h3>Housing</h3>
                     </Section>
-
                     <Section>
                         {
                             navbar.map(({ id, path, title, hidden }) => {
@@ -28,7 +28,6 @@ const Navbar = () => {
                             })
                         }
                     </Section>
-
                     <Section>
                         <Button onClick={() => navigate("/signin")} typeBtn={"dark"}>
                             Sign In
