@@ -19,8 +19,8 @@ const Properties = () => {
 return (
         <Container>
             {
-                data?.map(value => {
-                    return <HouseCard child={value.id}/>
+                [1,2,3,4,5,6,7,8].map((_, index) => {
+                    return <HouseCard child={index}/>
                 })
             }
         </Container>
