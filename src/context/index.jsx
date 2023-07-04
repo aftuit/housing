@@ -1,4 +1,4 @@
-import PropertiesProvider from "./properties";
+import {PropertiesProvider} from "./properties";
 
 
 const RootProvider = ({ children }) => {

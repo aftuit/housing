@@ -7,9 +7,11 @@ const PropertiesContext = createContext();
 
 const PropertiesProvider = ({ children }) => {
 
-    const [state, dispatch] = useReducer(reducer, [])
+    const [state, dispatch] = useReducer(reducer, {queryName: "country",});
 
-    return <PropertiesContext.Provider value={[state, dispatch]}>{children}</PropertiesContext.Provider>
+    return  <PropertiesContext.Provider value={[state, dispatch]}>
+                {children}
+            </PropertiesContext.Provider>
 }
 
-export default PropertiesProvider;
+export {PropertiesProvider, PropertiesContext};

@@ -5,7 +5,7 @@ import noimg from "../../assets/img/noimg.png";
 export const HouseCard = ({ data }) => {
 
 
-    const { imgPath, country, description, region, houseDetails, expired_price, price } = data;
+    const { imgPath, city, country, description, region, houseDetails, expired_price, price } = data;
 
     return (
         <Container>
@@ -15,7 +15,7 @@ export const HouseCard = ({ data }) => {
                     {country} - {description.slice(0, 22) + " ..." || "New Apartment nice view"}
                 </div>
                 <p className="text">
-                    {region || "Montserrat"}
+                {region || "Montserrat"}, {city}
                 </p>
                 <Details>
                     <Details.Item>
