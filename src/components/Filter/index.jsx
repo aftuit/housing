@@ -1,5 +1,8 @@
 import { React, useRef, useState, useEffect } from 'react'
+import { QUERY_TYPE } from '../../utils/types';
 import { Container, MenuWrapper, Section, Div, SelectAnt } from './style';
+import { useContext } from 'react';
+import { PropertiesContext } from "../../context/properties"
 import { Input, Button } from '../Generics';
 import { Icons } from '../Generics/Button/style';
 import { Dropdown } from 'antd';
@@ -7,8 +10,12 @@ import { uzeReplace } from '../../hooks/useReplace';
 import useSearch from '../../hooks/useSearch';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { categoryList } from '../../mock/category';
-import { apartments } from '../../mock/apartments';
+// import { apartments } from '../../mock/apartments';
 export const Filter = () => {
+
+  const [state, dispatch] = useContext(PropertiesContext);
+
+  console.log("state", state)
 
   const location = useLocation();
   const navigate = useNavigate();
@@ -28,6 +35,9 @@ export const Filter = () => {
   const [valueCategory, setValueCategory] = useState('Select Category');
 
   const onChange = ({ target: { name, value } }) => {
+
+    dispatch({ type: QUERY_TYPE, payload: { type: name } })
+
     let replace = uzeReplace(name, value);
     navigate(`${location?.pathname}${replace}`);
   };
@@ -41,7 +51,11 @@ export const Filter = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [location?.search, categoryList]);
 
+
   const onChangeCategory = (category_id) => {
+
+    dispatch({ type: QUERY_TYPE, payload: { type: "category_id" } })
+
     navigate(`/properties${uzeReplace('category_id', category_id)}`);
   };
 
@@ -80,8 +94,8 @@ export const Filter = () => {
       </Section>
       <h1 className='subTitle'>Apartment info</h1>
       <Section grid>
-        <Input onChange={onChange} defaultValue={query.get('rooms')} name="rooms"  ref={roomsRef} placeholder={"Rooms"} width={150} />
-        <Input onChange={onChange} defaultValue={query.get('size')} name="size"  ref={sizeRef} placeholder={"Size"} width={150} />
+        <Input onChange={onChange} defaultValue={query.get('rooms')} name="rooms" ref={roomsRef} placeholder={"Rooms"} width={150} />
+        <Input onChange={onChange} defaultValue={query.get('size')} name="size" ref={sizeRef} placeholder={"Size"} width={150} />
 
         <SelectAnt value={valueCategory} onChange={onChangeCategory}>
           <SelectAnt.Option value={''}>Select Category</SelectAnt.Option>
@@ -92,7 +106,7 @@ export const Filter = () => {
               </SelectAnt.Option>
             );
           })}
-          </SelectAnt>
+        </SelectAnt>
 
       </Section>
       <h1 className='subTitle'>Price</h1>
