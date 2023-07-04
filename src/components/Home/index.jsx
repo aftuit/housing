@@ -1,13 +1,15 @@
 import React from 'react'
-import { Container } from "./style"
+import { Container, Wrapper } from "./style"
 import { GenCarousel } from '../Carousel'
-import { HouseCard } from '../HouseCard'
+import { Category } from '../Category'
 
 const Home = () => {
     return (
-        <Container> 
+        <Container>
             <GenCarousel />
-            <HouseCard />
+            <Wrapper>
+                <Category />
+            </Wrapper>
         </Container>
     )
 }

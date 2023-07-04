@@ -1,8 +1,10 @@
 import styled from "styled-components";
 
 const Container = styled.div`
-
+    
 `
-
-
-export {Container};
+const Wrapper = styled.div`
+     max-width: 1440px;
+    padding: var(--padding);
+`
+export {Container, Wrapper};
