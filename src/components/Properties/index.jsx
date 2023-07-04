@@ -36,6 +36,9 @@ const Properties = () => {
         }))
     }, [query?.get([queryName])])
 
+    console.log("query", query.category_id)
+    console.log("filterAttr", filterAttr)
+
     return (
         <Container>
             {
