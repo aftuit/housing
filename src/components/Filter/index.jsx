@@ -1,12 +1,13 @@
-import {React, useRef} from 'react'
-import { Container, MenuWrapper, Section } from './style';
+import { React, useRef, useState, useEffect } from 'react'
+import { Container, MenuWrapper, Section, Div, SelectAnt } from './style';
 import { Input, Button } from '../Generics';
 import { Icons } from '../Generics/Button/style';
 import { Dropdown } from 'antd';
 import { uzeReplace } from '../../hooks/useReplace';
 import useSearch from '../../hooks/useSearch';
 import { useLocation, useNavigate } from 'react-router-dom';
-
+import { categoryList } from '../../mock/category';
+import { apartments } from '../../mock/apartments';
 export const Filter = () => {
 
   const location = useLocation();
@@ -20,22 +21,35 @@ export const Filter = () => {
 
   const roomsRef = useRef();
   const sizeRef = useRef();
-  const sortRef = useRef();
 
   const minPriceRef = useRef();
   const maxPriceRef = useRef();
+
+  const [valueCategory, setValueCategory] = useState('Select Category');
 
   const onChange = ({ target: { name, value } }) => {
     let replace = uzeReplace(name, value);
     navigate(`${location?.pathname}${replace}`);
   };
 
+  useEffect(() => {
+    let [d] = categoryList?.filter(
+      (ctg) => ctg.id === Number(query.get('category_id'))
+    );
+    d?.name && setValueCategory(d?.name);
+    !query.get('category_id') && setValueCategory('Select Category');
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [location?.search, categoryList]);
+
+  const onChangeCategory = (category_id) => {
+    navigate(`/properties${uzeReplace('category_id', category_id)}`);
+  };
 
   const menu = (
     <MenuWrapper>
       <h1 className='subTitle'>Address</h1>
-      <Section>
-       <Input
+      <Section grid>
+        <Input
           defaultValue={query.get('country')}
           onChange={onChange}
           ref={countryRef}
@@ -51,9 +65,9 @@ export const Filter = () => {
         />
         <Input
           onChange={onChange}
-          defaultValue={query.get('address')}
+          defaultValue={query.get('city')}
           ref={cityRef}
-          name='address'
+          name='city'
           placeholder='City'
         />
         <Input
@@ -65,20 +79,33 @@ export const Filter = () => {
         />
       </Section>
       <h1 className='subTitle'>Apartment info</h1>
-      <Section>
-        <Input ref={roomsRef} placeholder={"Rooms"} width={150} />
-        <Input ref={sizeRef} placeholder={"Size"} width={150} />
-        <Input ref={sortRef} placeholder={"Sort"} width={150} />
+      <Section grid>
+        <Input onChange={onChange} defaultValue={query.get('rooms')} name="rooms"  ref={roomsRef} placeholder={"Rooms"} width={150} />
+        <Input onChange={onChange} defaultValue={query.get('size')} name="size"  ref={sizeRef} placeholder={"Size"} width={150} />
+
+        <SelectAnt value={valueCategory} onChange={onChangeCategory}>
+          <SelectAnt.Option value={''}>Select Category</SelectAnt.Option>
+          {categoryList.map((value) => {
+            return (
+              <SelectAnt.Option key={value.id} value={value?.id}>
+                {value?.name}
+              </SelectAnt.Option>
+            );
+          })}
+          </SelectAnt>
+
       </Section>
       <h1 className='subTitle'>Price</h1>
-      <Section>
-        <Input ref={minPriceRef} placeholder={"Min price"}  width={150} />
-        <Input ref={maxPriceRef} placeholder={"Max price"} width={150}  />
+      <Section grid>
+        <Input onChange={onChange} defaultValue={query.get('min_price')} name="min_price" ref={minPriceRef} placeholder={"Min price"} width={150} />
+        <Input onChange={onChange} defaultValue={query.get('max_price')} name="max_price" ref={maxPriceRef} placeholder={"Max price"} width={150} />
       </Section>
-      <h1 className='subTitle'>Footer</h1>
+
       <Section>
-        <Button typeBtn={"light"}>Cancel</Button>
-        <Button>Submit</Button>
+        <Div>
+          <Button typeBtn={"light"}>Cancel</Button>
+          <Button>Submit</Button>
+        </Div>
       </Section>
     </MenuWrapper>
   )

@@ -7,6 +7,4 @@ const Wrapper = styled.div`
      max-width: 1440px;
     padding: var(--padding);
 `
-
-
 export {Container, Wrapper};
