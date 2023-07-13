@@ -1,18 +1,18 @@
 import { Container, Img, Content, Blur } from "./style";
-import icon from "../../assets/icons/carouselVilla.svg";
 
-export const CategoryCard = ({ data = {}, onClick }) => {
 
-    const { bgImg, name } = data;
+export const CategoryCard = ({ data = {}, onClick, categoryList, index }) => {
+
+    const { name } = data;
 
     return (
         <Container
             onClick={onClick}
         >
-            <Img src={bgImg} />
+            <Img src={categoryList[index].bgImg} />
             <Blur />
             <Content>
-                <img src={icon} alt="" />
+                <img src={categoryList[index].icn} alt="" />
                 {name || "Category"}
             </Content>
         </Container>

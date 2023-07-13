@@ -9,17 +9,16 @@ import { Dropdown } from 'antd';
 import { uzeReplace } from '../../hooks/useReplace';
 import useSearch from '../../hooks/useSearch';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { categoryList } from '../../mock/category';
-// import { apartments } from '../../mock/apartments';
+import useRequest from '../../hooks/useRequest';
+const {REACT_APP_BASE_URL: url} = process.env;
 export const Filter = () => {
 
-  const [state, dispatch] = useContext(PropertiesContext);
-
-  console.log("state", state)
+  const [, dispatch] = useContext(PropertiesContext);
 
   const location = useLocation();
   const navigate = useNavigate();
   const query = useSearch();
+  const request = useRequest();
 
   const countryRef = useRef();
   const regionRef = useRef();
@@ -33,6 +32,7 @@ export const Filter = () => {
   const maxPriceRef = useRef();
 
   const [valueCategory, setValueCategory] = useState('Select Category');
+  const [data, setData] = useState([]);
 
   const onChange = ({ target: { name, value } }) => {
 
@@ -43,13 +43,18 @@ export const Filter = () => {
   };
 
   useEffect(() => {
-    let [d] = categoryList?.filter(
+    request({url: `/v1/categories/list`})
+      .then(res => setData(res.data))
+  }, [])
+
+  useEffect(() => {
+    let [d] = data?.filter(
       (ctg) => ctg.id === Number(query.get('category_id'))
     );
     d?.name && setValueCategory(d?.name);
     !query.get('category_id') && setValueCategory('Select Category');
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [location?.search, categoryList]);
+  }, [location?.search, data]);
 
 
   const onChangeCategory = (category_id) => {
@@ -58,6 +63,8 @@ export const Filter = () => {
 
     navigate(`/properties${uzeReplace('category_id', category_id)}`);
   };
+
+
 
   const menu = (
     <MenuWrapper>
@@ -94,12 +101,12 @@ export const Filter = () => {
       </Section>
       <h1 className='subTitle'>Apartment info</h1>
       <Section grid>
-        <Input onChange={onChange} defaultValue={query.get('rooms')} name="rooms" ref={roomsRef} placeholder={"Rooms"} width={150} />
+        <Input onChange={onChange} defaultValue={query.get('room')} name="room" ref={roomsRef} placeholder={"Rooms"} width={150} />
         <Input onChange={onChange} defaultValue={query.get('size')} name="size" ref={sizeRef} placeholder={"Size"} width={150} />
 
         <SelectAnt value={valueCategory} onChange={onChangeCategory}>
           <SelectAnt.Option value={''}>Select Category</SelectAnt.Option>
-          {categoryList.map((value) => {
+          {data?.map((value) => {
             return (
               <SelectAnt.Option key={value.id} value={value?.id}>
                 {value?.name}

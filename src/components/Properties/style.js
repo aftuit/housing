@@ -8,9 +8,17 @@ const Container = styled.div`
     padding: var(--padding);
     max-width: 1440px;
     width: 100%;
-    margin: 50px auto auto;
+    margin: 50px auto;
     box-sizing: border-box;
+`;
+const Content = styled.div`
+  margin: 50px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  text-align: center;
 `;
 
 
-export {Container};
+export {Container, Content};

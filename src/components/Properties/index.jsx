@@ -1,60 +1,95 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { Container } from "./style";
+import { Container, Content } from "./style";
 import { HouseCard } from '../HouseCard';
-import { apartments } from '../../mock/apartments';
-import useSearch from '../../hooks/useSearch';
+import { useNavigate } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { PropertiesContext } from '../../context/properties';
-// import { useLocation } from 'react-router-dom';
-// const {REACT_APP_BASE_URL: url} = process.env;
+import { WISH_ADD_TYPE } from "../../utils/types";
+import useRequest from '../../hooks/useRequest';
+import Loader from "../Loader";
+import { Empty } from "antd";
+
 
 const Properties = () => {
 
-    const [{ queryName }] = useContext(PropertiesContext)
+    const [{ wishList }, dispatch] = useContext(PropertiesContext)
 
-    const query = useSearch();
+    const [data, setData] = useState(null);
+    const [loading, setLoading] = useState(true)
 
-    const [filteredData] = useState(apartments);
-
-    const [filterAttr, setFilterAttr] = useState({
-        country: query?.get('country') ?? "",
-        region: query?.get('region') ?? "",
-        city: query?.get('city') ?? "",
-        zip_code: query?.get('zip_code') ?? "",
-        rooms: query?.get('rooms') ?? "",
-        area: query?.get('size') ?? "",
-        category_id: query?.get('category_id') ?? "",
-        min_price: query?.get('min_price') ?? "",
-        max_price: query?.get('max_price') ?? "",
-    });
-
-
+    const { search } = useLocation();
+    const navigate = useNavigate();
+    const request = useRequest();
 
     useEffect(() => {
-        setFilterAttr((prev) => ({
-            ...prev,
-            [queryName]: query?.get([queryName]) ?? ""
-        }))
-    }, [query?.get([queryName])])
+        request({ url: `/v1/houses/list${search}` })
+            .then((res) => {
+                setData(res?.data);
+            }).finally(() => {
+                setLoading(false);
+            });
 
-    console.log("query", query.category_id)
-    console.log("filterAttr", filterAttr)
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [search]);
+
+
+    const onSelect = (id) => {
+        navigate(`/properties/${id}`)
+    }
+
+    useEffect(() => {
+        getFavoriteList();
+    }, [])
+
+    function getFavoriteList() {
+        request({
+            url: "/v1/houses/getAll/favouriteList",
+            token: true
+        }).then((res) => {
+            dispatch({ type: WISH_ADD_TYPE, payload: { list: [...res.data.map(item => item.id)] } })
+            console.log([...res.data.map(item => item.id)], "ids")
+        })
+    }
+
+
+
+
 
     return (
-        <Container>
+        <>
+            <Content>
+                <h1 className="title">Properties</h1>
+                <div className="info">
+                    Volutpat bibendum quis curabitur velit nulla auctor consectetur sit.
+                </div>
+            </Content>
+
             {
-                filteredData.filter(item => item.country.toLowerCase().includes(filterAttr.country.toLowerCase() ?? ""))
-                    .filter(item => item.region.toLowerCase().includes(filterAttr.region.toLowerCase() ?? ""))
-                    .filter(item => item.city.toLowerCase().includes(filterAttr.city.toLowerCase() ?? ""))
-                    .filter(item => filterAttr.zip_code ? Number(item.zip_code) == Number(filterAttr.zip_code) : item)
-                    .filter(item => filterAttr.rooms ? Number(item.houseDetails.room) == Number(filterAttr.rooms) : item)
-                    .filter(item => filterAttr.size ? Number(item.size) == Number(filterAttr.size) : item)
-                    .filter(item => filterAttr.category_id ? item.category.id == filterAttr.category_id : item)
-                    .filter(item => filterAttr.min_price === "" && filterAttr.max_price === "" ? item : +filterAttr.min_price <= +item.price && +item.price <= +filterAttr.max_price)
-                    .map((item) => {
-                        return <HouseCard data={item} key={item.id} />
-                    })
+                loading ?
+                    <Loader /> :
+                    !loading && data?.length ?
+                        <Container>
+                            {
+                                data ?
+                                    data.map((item) => {
+                                        return <HouseCard
+                                            onClick={() => onSelect(item.id)}
+                                            data={item}
+                                            key={item.id}
+                                            getFavoriteList={getFavoriteList}
+                                            wishList={wishList}
+                                        />
+                                    }) :
+                                    <h3><i>No data was found</i></h3>
+                            }
+                        </Container> :
+                        <Content>
+                            <Empty />
+                        </Content>
             }
-        </Container>
+
+
+        </>
     )
 }
 

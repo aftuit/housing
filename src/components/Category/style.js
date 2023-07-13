@@ -4,9 +4,7 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   position: relative;
-  margin: auto;
-  /* padding: 96px 130px; */
-  /* max-width: 1440px; */
+  margin-top: 96px;
   width: 100%;
 `;
 
@@ -17,6 +15,7 @@ const Content = styled.div`
   width: 100%;
   text-align: center;
   margin-bottom: 32px;
+
 `;
 
 export { Container, Content };

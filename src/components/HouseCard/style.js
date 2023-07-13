@@ -8,11 +8,9 @@ import { ReactComponent as resize } from "../../assets/icons/resize.svg";
 
 export const Container = styled.div`
   width: 100%;
-  max-width: 380px;
+  max-width: ${({ gap }) =>  gap? `350px`: "380px"};
   min-width: 330px;
-  margin: ${({ gap }) => {
-    return gap && `0 ${gap}px`;
-  }};
+  margin: ${({ gap }) =>  gap? `0 ${gap}px`: "0px"};
   height: 430px;
   background: white;
   border: 1px solid #e6e9ec;
@@ -56,16 +54,19 @@ Icons.Bath = styled(bath)``;
 Icons.Bed = styled(bed)``;
 Icons.Garage = styled(garage)``;
 Icons.Love = styled(love)`
-  cursor: pointer;
-  width: 27px;
-  height: 27px;
-  padding: 6px;
-  border-radius: 50%;
-  margin-left: 20px;
-  background: #f6f8f9;
-  :active{
-    transform: scale(0.9);
-  }
+    width: 23px;
+    height: 23px;
+    padding: 4px;
+    background: ${({ favorite }) => (favorite ? "red" : "#f6f8f9")};
+    border-radius: 50%;
+    margin-left: 20px;
+    cursor: pointer;
+    & path {
+      fill: ${({ favorite }) => favorite ? "white": ""};
+    }
+    :active {
+      transform: scale(0.9);
+    }
 `;
 Icons.Resize = styled(resize)`
   cursor: pointer;

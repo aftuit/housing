@@ -1,21 +1,45 @@
 import React from "react";
 import { Container, Img, Content, Icons, Details, Divider } from "./style";
 import noimg from "../../assets/img/noimg.png";
+import useRequest from "../../hooks/useRequest";
+export const HouseCard = ({ data, gap, onClick, getFavoriteList, wishList = [] }) => {
 
-export const HouseCard = ({ data }) => {
+    const { 
+        id,
+        favorite = wishList?.includes(Number(data.id)), 
+        category, 
+        attachments, 
+        city, 
+        country, 
+        description, 
+        region, 
+        houseDetails, 
+        salePrice, 
+        price 
+    } = data;
 
-
-    const { imgPath, city, country, description, region, houseDetails, expired_price, price } = data;
+    const request = useRequest();
+  
+    const likeDislike = (id, favorite) => {
+        request({
+            url: `/v1/houses/addFavourite/${id}?favourite=${!favorite}`,
+            token: true,
+            method: "PUT",
+        })
+            .then(() => {
+                getFavoriteList();
+        })
+    }
 
     return (
-        <Container>
-            <Img src={imgPath || noimg} />
+        <Container gap={gap}>
+            <Img src={attachments?.[0].imgPath || noimg} />
             <Content>
                 <div className="subTitle">
-                    {country} - {description.slice(0, 22) + " ..." || "New Apartment nice view"}
+                    {country} - {description.slice(0, 18) + " ..." || "New Apartment nice view"}
                 </div>
                 <p className="text">
-                {region || "Montserrat"}, {city}
+                {category.name} - {region || "Montserrat"}, {city}
                 </p>
                 <Details>
                     <Details.Item>
@@ -34,7 +58,7 @@ export const HouseCard = ({ data }) => {
                     </Details.Item>
                     <Details.Item>
                         <Icons.Bed />
-                        <div className="text">{houseDetails?.room + " room" || " bed"}</div>
+                        <div className="text">{houseDetails?.beds + " beds" || " beds"}</div>
 
                     </Details.Item>
                 </Details>
@@ -42,14 +66,16 @@ export const HouseCard = ({ data }) => {
             <Divider />
             <Content footer="true">
                 <Details.Item style={{ alignItems: "start" }}>
-                    <div className="text expired">{`$${expired_price}/mo`}</div>
-                    <div className="subTitle">{`$${price}/mo`}</div>
+                    <div className="text expired">{`$${price}/mo`}</div>
+                    <div className="subTitle">{`$${salePrice}/mo`}</div>
                 </Details.Item>
                 <Details.Item footer="true" row="true">
-                    <Icons.Resize />
-                    <Icons.Love />
+                    <Icons.Resize onClick={onClick}/>
+                    <Icons.Love favorite={favorite? 1: 0} onClick={() => likeDislike(id, favorite)}/>
                 </Details.Item>
             </Content>
         </Container>
     )
 }
+
+export default HouseCard

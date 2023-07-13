@@ -41,7 +41,10 @@ outline: none;
 border: 1px solid #E6E9EC;
 padding-left: ${({icon}) => icon? "40px": "20px"};
 padding-right: 20px;
-/* ${getType}; */
+transition: all .4s linear;
+:focus{
+  border: 1px solid #0061df;
+}
 
 `;
 
