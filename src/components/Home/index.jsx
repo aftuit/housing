@@ -5,8 +5,6 @@ import { Category } from '../Category';
 import { Recommended } from '../Recommended';
 import { Why } from '../Why';
 import { Banner } from '../Banner';
-import { Loader } from '../Loader';
-// import { Recent } from '../Recent';
 
 
 const Home = () => {
@@ -21,7 +19,6 @@ const Home = () => {
                 <Category />
             </Wrapper>
             <Banner />
-            {/* <Recent/> */}
         </Container>
     )
 }

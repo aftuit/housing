@@ -1,5 +1,6 @@
 import React from "react";
 import useUniqueId from "../hooks/useId";
+import Animation from "../components/Animate";
 const HomePage = React.lazy(() => import("../pages/Home"));
 const MyProfilePage = React.lazy(() => import("../pages/MyProfile"));
 const PropertiesPage = React.lazy(() => import("../pages/Properties"));
@@ -12,7 +13,9 @@ export const navbar = [
     id: useUniqueId,
     title: "Home",
     element: (
-      <React.Suspense fallback={<React.Fragment>Loading...</React.Fragment>}>
+      <React.Suspense fallback={<React.Fragment>
+        <Animation />
+      </React.Fragment>}>
         <HomePage />
       </React.Suspense>
     ),
@@ -24,8 +27,8 @@ export const navbar = [
     id: useUniqueId,
     title: "Properties",
     element: (
-      <React.Suspense fallback={<React.Fragment>Loading...</React.Fragment>}>
-         <PropertiesPage />
+      <React.Suspense fallback={<React.Fragment> <Animation /></React.Fragment>}>
+        <PropertiesPage />
       </React.Suspense>
     ),
     path: "/properties",
@@ -36,7 +39,7 @@ export const navbar = [
     id: useUniqueId,
     title: "Registeration",
     element: (
-      <React.Suspense fallback={<React.Fragment>Loading...</React.Fragment>}>
+      <React.Suspense fallback={<React.Fragment> <Animation /></React.Fragment>}>
         <RegisterPage />
       </React.Suspense>
     ),
@@ -48,7 +51,7 @@ export const navbar = [
     id: useUniqueId,
     title: "Single Page",
     element: (
-      <React.Suspense fallback={<React.Fragment>Loading...</React.Fragment>}>
+      <React.Suspense fallback={<React.Fragment> <Animation /></React.Fragment>}>
         <SinglePage />
       </React.Suspense>
     ),
@@ -60,7 +63,7 @@ export const navbar = [
     id: useUniqueId,
     title: "My Profile",
     element: (
-      <React.Suspense fallback={<React.Fragment>Loading...</React.Fragment>}>
+      <React.Suspense fallback={<React.Fragment> <Animation /></React.Fragment>}>
         <MyProfilePage />
       </React.Suspense>
     ),
@@ -72,7 +75,7 @@ export const navbar = [
     id: useUniqueId,
     title: "Favourite Page",
     element: (
-      <React.Suspense fallback={<React.Fragment>Loading...</React.Fragment>}>
+      <React.Suspense fallback={<React.Fragment> <Animation /></React.Fragment>}>
         <Favourite />
       </React.Suspense>
     ),

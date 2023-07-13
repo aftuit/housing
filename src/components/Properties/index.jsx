@@ -47,7 +47,6 @@ const Properties = () => {
             token: true
         }).then((res) => {
             dispatch({ type: WISH_ADD_TYPE, payload: { list: [...res.data.map(item => item.id)] } })
-            console.log([...res.data.map(item => item.id)], "ids")
         })
     }
 

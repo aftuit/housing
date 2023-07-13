@@ -13,7 +13,7 @@ export const AddNewHouse = ({
   imgs,
   setImgs,
   initial,
-  isModalOpen,
+  
   refetch
 }) => {
 
@@ -67,7 +67,6 @@ export const AddNewHouse = ({
   });
 
   const addImg = () => {
-    console.log("imgs", imgs)
 
     if(img) {
       setImgs([
@@ -79,8 +78,6 @@ export const AddNewHouse = ({
   };
 
   const removeImg = (id) => {
-    console.log(id);
-    console.log(imgs);
       let res = imgs.filter((vl) => vl.id !== id);
       setImgs(res);
   }
@@ -344,7 +341,7 @@ export const AddNewHouse = ({
           </Section>
           <Section end="true">
             <Btn onClick={handleCancel} type={'light'}>Cancel</Btn>
-            <ButtonAnt type="submit" loading={pending}>{id ? "Update" : "Save"}</ButtonAnt>
+            <ButtonAnt type="submit" htmlType="submit" loading={pending}>{id ? "Update" : "Save"}</ButtonAnt>
           </Section>
         </MenuWrapper>
       </form>

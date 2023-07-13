@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Content, Form } from "./style";
 import { useNavigate } from "react-router-dom";
 import { Button, Input } from "../Generics";
@@ -35,7 +35,6 @@ export const Signup = () => {
       method: "POST",
       body: body
     }).then(res => {
-      console.log(res);
       info();
       dispatch({ type: TAB_TYPE, payload: { tab: "1" } })
     })

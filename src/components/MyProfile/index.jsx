@@ -40,10 +40,6 @@ export const MyProfile = () => {
   };
 
   const handleCancel = () => {
-
-console.log("handleCancel");
-
-
     setIsModalOpen(false);
     document.getElementById("add-house-form").reset();
     setId(null)

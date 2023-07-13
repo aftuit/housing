@@ -1,7 +1,6 @@
 import { createContext } from "react";
 import { useReducer } from "react";
 import { reducer } from "./reducer";
-// import { apartments } from "../../mock/apartments";
 
 const PropertiesContext = createContext();
 
