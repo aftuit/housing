@@ -13,9 +13,12 @@ export const Signin = () => {
     message.success("Successfully signed in")
   }
   const authWarning = () => {
-    message.error("User not found!")
+    message.error("User not found")
   }
 
+  const error = () => {
+    message.error("Server error")
+  }
   const onSubmit = (evt) => {
     evt.preventDefault();
 
@@ -37,7 +40,8 @@ export const Signin = () => {
       } else {
         authWarning();
       }
-    })
+    }).catch(() => error())
+    
   }
 
   return (

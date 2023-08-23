@@ -18,6 +18,9 @@ export const Signup = () => {
   const info = () => {
     message.success("Successfylly signed up");
   }
+  const error = () => {
+    message.error("Server error");
+  }
 
   const onSubmit = (evt) => {
     evt.preventDefault();
@@ -37,7 +40,7 @@ export const Signup = () => {
     }).then(res => {
       info();
       dispatch({ type: TAB_TYPE, payload: { tab: "1" } })
-    })
+    }).catch(() => error())
 
   };
 
