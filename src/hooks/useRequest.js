@@ -12,7 +12,7 @@ export const useRequest = () => {
       headers.Authorization = `Bearer ${JSON.parse(localStorage.getItem("token"))}`;
     const options = {
       method,
-      headers: { ...headers, "Content-Type": "application/json" },
+      headers: { ...headers, "Content-Type": "application/json",  },
       body: JSON.stringify(body),
     };
 
