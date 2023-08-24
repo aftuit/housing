@@ -49,6 +49,9 @@ body {
   height: 100%;
   width: 100%;
 }
+/* :where(.css-dev-only-do-not-override-1vtf12y).ant-btn-default:not(:disabled):hover{
+  color: #fff;
+} */
 .text {
   font-family: "Montserrat";
   font-style: normal;
@@ -72,16 +75,15 @@ body {
   100% { transform: rotate(360deg) }
 }
 .ldio-zuiq12336es div {
-  animation: ldio-zuiq12336es 1.22s linear infinite;
+  animation: ldio-zuiq12336es 0.8s linear infinite;
   width: 180.18px;
   height: 180.18px;
   border-radius: 50%;
-  box-shadow: 0 5.082000000000001px 0 0 #44d0eb;
+  box-shadow: 0 8.082px 0 0 #0061df;
   transform-origin: 90.09px 92.631px;
 }
 .loadingio-spinner-eclipse-uj9g0i1zicp {
   display: inline-block;
-  overflow: hidden;
   background: none;
   transform: scale(0.3);
   display: block;
@@ -98,34 +100,28 @@ body {
 .ldio-zuiq12336es div { box-sizing: content-box; }
 
 /* Animation */
-@keyframes ldio-tfbik84qg4i {
-  0% { background: #61a9e7 }
-  12.5% { background: #61a9e7 }
-  12.625% { background: #21457b }
-  100% { background: #21457b }
+@keyframes ldio-apu9uy8hnoa {
+  0% { background: #0061df }
+  25% { background: #0061df }
+  25.25% { background: #0d263b }
+  100% { background: #0d263b }
 }
-.animation-wrap{
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 100px 0;
-}
-.ldio-tfbik84qg4i div {
+.ldio-apu9uy8hnoa div {
   position: absolute;
-  width: 36.96px;
-  height: 36.96px;
-  background: #21457b;
-  animation: ldio-tfbik84qg4i 1.3513513513513513s linear infinite;
+  width: 30px;
+  height: 30px;
+  background: #0d263b;
+  animation: ldio-apu9uy8hnoa 0.7042253521126761s linear infinite;
 }
-.loadingio-spinner-blocks-xpk14cmureh {
-  width: 231px;
-  height: 231px;
-  display: inline-block;
+.loadingio-spinner-blocks-24jy9a6j76r {
+  width: 200px;
+  height: 200px;
+  display: block;
   overflow: hidden;
   background: none;
+  margin: auto;
 }
-.ldio-tfbik84qg4i {
+.ldio-apu9uy8hnoa {
   width: 100%;
   height: 100%;
   position: relative;
@@ -133,4 +129,4 @@ body {
   backface-visibility: hidden;
   transform-origin: 0 0; /* see note above */
 }
-.ldio-tfbik84qg4i div { box-sizing: content-box; }
+.ldio-apu9uy8hnoa div { box-sizing: content-box;}

@@ -5,6 +5,7 @@ import { Category } from '../Category';
 import { Recommended } from '../Recommended';
 import { Why } from '../Why';
 import { Banner } from '../Banner';
+import Animation from '../Animate';
 
 
 const Home = () => {

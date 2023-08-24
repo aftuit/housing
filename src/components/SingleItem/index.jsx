@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Checkbox, message } from "antd";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { Input, Button } from "../Generics";
 import { YandexMap } from "../Generics/YandexMap";
 import nouser from "../../assets/img/nouser.jpeg";
@@ -57,6 +57,7 @@ export const SingleItem = () => {
     }
 
     const request = useRequest();
+    const navigate = useNavigate();
 
     const favorite = wishList.some(vl => vl === singleItem?.id) ? 1 : 0;
 
@@ -68,18 +69,29 @@ export const SingleItem = () => {
             checkWidth(res.data.attachments.length);
             setSingleItem(res.data)
         })
-    }, [])
+    }, [window.location.pathname])
+
+    const warning = () => {
+        message.warning("You have to register!")
+        navigate("/register")
+      }
 
     const addRemoveLiked = (id, favorite) => {
-        request({
-            url: `/v1/houses/addFavourite/${id}?favourite=${!favorite}`,
-            token: true,
-            method: "PUT",
-        }).then(res => {
-            favorite ?
-                dispatch({ type: WISH_REMOVE_TYPE, payload: { list: wishList.filter(vl => vl !== res.data.id) } }) :
-                dispatch({ type: WISH_ADD_TYPE, payload: { list: [...wishList, res?.data.id] } })
-        })
+       
+            const token = localStorage.getItem("token");
+            if(token) {
+                request({
+                    url: `/v1/houses/addFavourite/${id}?favourite=${!favorite}`,
+                    token: true,
+                    method: "PUT",
+                }).then(res => {
+                    favorite ?
+                        dispatch({ type: WISH_REMOVE_TYPE, payload: { list: wishList.filter(vl => vl !== res.data.id) } }) :
+                        dispatch({ type: WISH_ADD_TYPE, payload: { list: [...wishList, res?.data.id] } })
+                })
+            } else {
+                warning();
+            }
     }
 
     function shareItem(data) {

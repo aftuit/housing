@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { ReactComponent as setting} from "../../../assets/icons/setting.svg";
 import { ReactComponent as search} from "../../../assets/icons/search.svg";
 import { ReactComponent as houses} from "../../../assets/icons/houses.svg";
+import {Button} from "antd"
 
 const getType = ({ typeBtn }) => {
     switch (typeBtn) {
@@ -38,7 +39,7 @@ function getWidth({width}){
   else return `${width}px`;
 }
 
-const Container = styled.button`
+const Container = styled(Button)`
 display: flex;
 justify-content: center;
 align-items: center;
@@ -50,10 +51,9 @@ cursor: pointer;
 
 ${getType};
 
-:active{
-    opacity: 0.8;
+:hover{
+  color:  ${({ txt }) => (txt? txt: '#fff')};
 }
-
 `;
 
 const Icons = styled.div``;

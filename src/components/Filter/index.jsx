@@ -124,7 +124,7 @@ export const Filter = () => {
 
       <Section>
         <Div>
-          <Button typeBtn={"light"}>Cancel</Button>
+          <Button typeBtn={"light"} txt={'#0061DF'}>Cancel</Button>
           <Button>Submit</Button>
         </Div>
       </Section>
@@ -141,7 +141,7 @@ export const Filter = () => {
         trigger='click'
       >
         <div>
-          <Button typeBtn={"light"}>
+          <Button typeBtn={"light"} txt={'#0061DF'}>
             <Icons.Setting />
             Advanced</Button>
         </div>

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import { Outlet, useNavigate } from 'react-router-dom';
 import { Container, Wrapper, Section, Logo, Link, Main, Menu } from "./style";
 import { Button } from '../Generics/Button';
@@ -6,14 +6,24 @@ import { Dropdown } from 'antd';
 import Filter from '../Filter';
 import Footer from "../Footer";
 import { navbar } from '../../utils/navbar';
+import { useLocation } from "react-router";
+
+
+
 const Navbar = () => {
 
     const navigate = useNavigate();
+    const { pathname } = useLocation();
 
     const token = localStorage.getItem("token");
 
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, [pathname]);
+
+
     function onClickProfile({ target: { dataset: { name } } }) {
-        if(name === "logout") {
+        if (name === "logout") {
             localStorage.removeItem("token");
             navigate("/home")
         }
@@ -65,7 +75,7 @@ const Navbar = () => {
                                     trigger='click'
                                 >
                                     <div>
-                                        <Button  typeBtn={"dark"}>Profile</Button>
+                                        <Button typeBtn={"dark"}>Profile</Button>
                                     </div>
                                 </Dropdown> :
                                 <Button onClick={() => navigate("/register")} typeBtn={"dark"}>

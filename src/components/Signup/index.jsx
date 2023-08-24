@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Content, Form } from "./style";
 import { useNavigate } from "react-router-dom";
 import { Button, Input } from "../Generics";
@@ -9,6 +9,7 @@ import { PropertiesContext } from "../../context/properties";
 import { TAB_TYPE } from "../../utils/types";
 
 export const Signup = () => {
+  const [isLoading, setIsLoading] = useState(false);
   const request = useRequest();
   const navigate = useNavigate();
 
@@ -32,15 +33,19 @@ export const Signup = () => {
       password: data.password.value,
       roleIdSet: [0]
     }
-
-    request({
-      url: "/public/auth/register",
-      method: "POST",
-      body: body
-    }).then(res => {
-      info();
-      dispatch({ type: TAB_TYPE, payload: { tab: "1" } })
-    }).catch(() => error())
+    if (body.email !== "" && body.password !== "" && body.firstname !== "" && body.lastname !== "") {
+      console.log(isLoading);
+      request({
+        url: "/public/auth/register",
+        method: "POST",
+        body: body
+      }).then(res => {
+        info();
+        dispatch({ type: TAB_TYPE, payload: { tab: "1" } })
+      })
+        .catch(() => error())
+        .finally(() => setIsLoading(false))
+    }
 
   };
 
@@ -53,8 +58,8 @@ export const Signup = () => {
         <Input name="firstname" placeholder="firstname" type="text" />
         <Input name="lastname" placeholder="lastname" type="text" />
         <Input name="password" placeholder="password" type="password" />
-        <Button width="%" type="submit">
-          Login
+        <Button width="%" htmlType="submit" isLoading={isLoading}>
+          Submit
         </Button>
       </Form>
     </Content>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Content, Form } from "./style";
 import { useNavigate } from "react-router-dom";
 import { Button, Input } from "../Generics";
@@ -6,6 +6,7 @@ import useRequest from "../../hooks/useRequest";
 import { message } from "antd";
 
 export const Signin = () => {
+  const [isLoading, setIsLoading] = useState(false);
   const request = useRequest();
   const navigate = useNavigate();
 
@@ -21,12 +22,14 @@ export const Signin = () => {
   }
   const onSubmit = (evt) => {
     evt.preventDefault();
-
+    console.log("ishladi");
     const data = evt.target.elements;
     const body = {
       email: data.email.value,
       password: data.password.value,
     }
+    if(body.email !== "" && body.password !== "") {
+    setIsLoading(true);
 
     request({
       url: "/public/auth/login",
@@ -40,8 +43,10 @@ export const Signin = () => {
       } else {
         authWarning();
       }
-    }).catch(() => error())
-    
+    })
+    .catch(() => error())
+    .finally(() => setIsLoading(false))
+  }
   }
 
   return (
@@ -50,7 +55,7 @@ export const Signin = () => {
       <Form onSubmit={onSubmit}>
         <Input name="email" placeholder="email" type="email" required={true} />
         <Input name="password" placeholder="password" type="password" required={true} />
-        <Button width="%" type="submit">
+        <Button width="%" htmlType="submit" isLoading={isLoading}>
           Submit
         </Button>
       </Form>

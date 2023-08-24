@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { Container, Content } from "./style";
 import { HouseCard } from "../HouseCard";
 import Slider from "react-slick";
@@ -23,7 +23,6 @@ export const Recommended = () => {
         appendDots: (dots) => <h1> {dots} </h1>,
     };
     const [recommendData, setRecommendData] = useState([]);
-
     const navigate = useNavigate();
 
     const request = useRequest();
@@ -56,7 +55,9 @@ export const Recommended = () => {
                                                     gap={10}
                                                     key={item.id}
                                                     onClick={() => navigate(`/properties/${item.id}`)}
-                                                    data={item} />
+                                                    data={item} 
+                                                    noLike={true}
+                                                    />
                                         })
                     } 
 

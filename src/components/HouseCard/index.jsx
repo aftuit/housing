@@ -2,33 +2,48 @@ import React from "react";
 import { Container, Img, Content, Icons, Details, Divider } from "./style";
 import noimg from "../../assets/img/noimg.png";
 import useRequest from "../../hooks/useRequest";
-export const HouseCard = ({ data, gap, onClick, getFavoriteList, wishList = [] }) => {
+import { useNavigate } from "react-router-dom";
+import { message } from "antd";
 
-    const { 
+export const HouseCard = ({ data, gap, onClick, getFavoriteList, wishList = [], noLike = false }) => {
+
+    const {
         id,
-        favorite = wishList?.includes(Number(data.id)), 
-        category, 
-        attachments, 
-        city, 
-        country, 
-        description, 
-        region, 
-        houseDetails, 
-        salePrice, 
-        price 
+        favorite = wishList?.includes(Number(data.id)),
+        category,
+        attachments,
+        city,
+        country,
+        description,
+        region,
+        houseDetails,
+        salePrice,
+        price,
+        
     } = data;
 
     const request = useRequest();
-  
+    const navigate = useNavigate();
+
+    const warning = () => {
+        message.warning("You have to register!")
+        navigate("/register")
+    }
+
     const likeDislike = (id, favorite) => {
-        request({
-            url: `/v1/houses/addFavourite/${id}?favourite=${!favorite}`,
-            token: true,
-            method: "PUT",
-        })
-            .then(() => {
-                getFavoriteList();
-        })
+        const token = localStorage.getItem("token");
+        if (token) {
+            request({
+                url: `/v1/houses/addFavourite/${id}?favourite=${!favorite}`,
+                token: true,
+                method: "PUT",
+            })
+                .then(() => {
+                    getFavoriteList();
+                })
+        } else {
+            warning();
+        }
     }
 
     return (
@@ -39,7 +54,7 @@ export const HouseCard = ({ data, gap, onClick, getFavoriteList, wishList = [] }
                     {country} - {description.slice(0, 18) + " ..." || "New Apartment nice view"}
                 </div>
                 <p className="text">
-                {category.name} - {region || "Montserrat"}, {city}
+                    {category.name} - {region || "Montserrat"}, {city}
                 </p>
                 <Details>
                     <Details.Item>
@@ -70,8 +85,10 @@ export const HouseCard = ({ data, gap, onClick, getFavoriteList, wishList = [] }
                     <div className="subTitle">{`$${salePrice}/mo`}</div>
                 </Details.Item>
                 <Details.Item footer="true" row="true">
-                    <Icons.Resize onClick={onClick}/>
-                    <Icons.Love favorite={favorite? 1: 0} onClick={() => likeDislike(id, favorite)}/>
+                    <Icons.Resize onClick={onClick} />
+                    {
+                        noLike? <></> : <Icons.Love favorite={favorite ? 1 : 0} onClick={() => likeDislike(id, favorite)} />
+                    }
                 </Details.Item>
             </Content>
         </Container>
