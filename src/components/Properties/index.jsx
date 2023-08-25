@@ -50,10 +50,6 @@ const Properties = () => {
         })
     }
 
-
-
-
-
     return (
         <>
             <Content>
