@@ -51,10 +51,10 @@ export const HouseCard = ({ data, gap, onClick, getFavoriteList, wishList = [], 
             <Img src={attachments?.[0].imgPath || noimg} />
             <Content>
                 <div className="subTitle">
-                    {country} - {description.slice(0, 18) + " ..." || "New Apartment nice view"}
+                    {country} - {description?.slice(0, 18) + " ..." || "New Apartment nice view"}
                 </div>
                 <p className="text">
-                    {category.name} - {region || "Montserrat"}, {city}
+                    {category?.name} - {region || "Montserrat"}, {city}
                 </p>
                 <Details>
                     <Details.Item>
